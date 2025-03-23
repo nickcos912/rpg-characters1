@@ -134,4 +134,5 @@ getData() {
       .href;
   }
 }
-customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
+globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
+
