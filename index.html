@@ -1,33 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>GitHub RPG Contributors</title>
+    <title>RPG Contributors</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      body {
+      :root, html, body {
+        margin: 0;
+        padding: 0;
         font-family: sans-serif;
-        margin: 2rem;
+        background-color: #fff;
+        color: #000;
+      }
+      #demo {
+        padding: 20px;
       }
     </style>
-    <!-- ✅ This script loads your component -->
-    <script type="module" src="./rpg-characters.js"></script>
   </head>
-
   <body>
-    <h1>rpg-contributors</h1>
-
-    <!-- ✅ These tags now actually work -->
-    <github-rpg-contributors 
-      org="haxtheweb" 
-      repo="webcomponents" 
-      limit="5">
-    </github-rpg-contributors>
-
-    <github-rpg-contributors 
-      org="HannahMontana-ALE" 
-      repo="HannahMontana-ALE" 
-      limit="5">
-    </github-rpg-contributors>
+    <div id="demo">
+      <h1>rpg-contributors</h1>
+      <github-rpg-contributors org="haxtheweb" repo="rpg-character" limit="10"></github-rpg-contributors>
+    </div>
+    <script type="module" src="./rpg-characters.js"></script>
   </body>
 </html>
