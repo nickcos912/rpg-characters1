@@ -2,28 +2,48 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>rpg-contributors</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Demonstration for github-rpg-contributors">
+
   <style>
     :root, html, body {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
     }
+    #demo {
+      margin: var(--ddd-spacing-2);
+    }
+    github-rpg-contributors {
+      margin: var(--ddd-spacing-2);
+      border: var(--ddd-border-md);
+      border-radius: var(--ddd-radius-lg);
+    }
+    github-rpg-contributors:hover {
+      box-shadow: var(--ddd-boxShadow-sm);
+    }
+    #example {
+      --github-rpg-contributors-font-size: var(--ddd-font-size-l);
+      background-color: var(--ddd-accent-2);
+      color: var(--ddd-primary-17);
+    }
+
   </style>
-  <script type="module" src="./rpg-characters.js"></script>
+  <title>github-rpg-contributors</title>
 </head>
 
 <body>
-  <body>
-    <h1>rpg-contributors</h1>
-    <github-rpg-contributors 
-      org="haxtheweb" 
-      repo="webcomponents" 
-      limit="5">
-    </github-rpg-contributors>
-  </body>
+  <div id="demo">
+    
+    <h1>github-rpg-contributors</h1>
+    <github-rpg-contributors org="haxtheweb" repo="webcomponents" limit="10"></github-rpg-contributors>
+    <github-rpg-contributors org="HannahMontana-ALE" repo="HannahMontana-ALE" limit="10"></github-rpg-contributors>
+  <script type="module" src="./github-rpg-contributors.js"></script>
+  <!-- Take HAX, the Web and you further down the rabbit hole -->
+   <!-- <div id="RPGguy">
+  <rpg-character  seed="${item.login}"></rpg-character>
+   </div> -->
+  </div>
 </body>
-
 </html>

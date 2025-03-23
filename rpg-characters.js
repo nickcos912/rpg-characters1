@@ -7,50 +7,78 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 import '@haxtheweb/rpg-character/rpg-character.js';
 
+
+/**
+ * `github-rpg-contributors`
+ * 
+ * @demo index.html
+ * @element rpg-characters
+ */
 export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
-  static get tag() { return "github-rpg-contributors"; }
+
+  static get tag() {
+    return "rpg-characters";
+  }
 
   constructor() {
     super();
-    this.items = [];
-    this.org = '';
-    this.repo = '';
+    this.items = []
+    this.org=''
+    this.repo=''
     this.title = "";
     this.limit = 25;
+    this.t = this.t || {};
+    this.t = {
+      ...this.t,
+      title: "Title",
+    };
   }
 
+  // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
       title: { type: String },
-      items: { type: Array },
-      org: { type: String },
-      repo: { type: String },
-      limit: { type: Number }
+      items: { type: Array},
+      org: {type: String},
+      repo: {type: String},
+      limit: {type: Number}
     };
   }
 
+  // Lit scoped styles
   static get styles() {
-    return [super.styles, css`
+    return [super.styles,
+    css`
       :host {
         display: block;
         font-family: var(--ddd-font-navigation);
       }
-      .rpg-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+      .wrapper {
+        margin: var(--ddd-spacing-2);
+        padding: var(--ddd-spacing-4);
       }
+      h3 span {
+        font-size: var(--github-rpg-contributors-label-font-size, var(--ddd-font-size-s));
+      }
+      .rpg-wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      }
+
       .character-stuff {
         padding: var(--ddd-spacing-3);
         text-align: center;
         min-width: 176px;
       }
-      .contDetails {
+
+      .contdetails {
         display: flex;
         flex-direction: column;
         margin: var(--ddd-spacing-3);
       }
+
       .header {
         text-align: center;
         margin: 0 auto;
@@ -61,45 +89,50 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
-  updated(changedProps) {
-      super.updated(changedProps);
-      if ((changedProps.has("org") || changedProps.has("repo")) && this.org && this.repo) {
-        this.getData();
-      }
-
-    // 🔥 force re-rendering of RPG characters after update
-    setTimeout(() => {
-      this.shadowRoot?.querySelectorAll('rpg-character').forEach((el) => {
-        el.draw?.();
-      });
-    }, 100);
+  updated(changedProperties){
+    super.updated(changedProperties);
+    if (changedProperties.has('org') || changedProperties.has('repo')){
+      this.getData();
+    }
   }
+getData() {
+  const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
+  try {
+    fetch(url).then(d => d.ok ? d.json(): {}).then(data => {
+      if (data) {
+        this.items = [];
+        this.items = data;
+      }});
+  } catch (error) {
+    console.error("HI");
+  }}
 
-  getData() {
-      const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          this.items = Array.isArray(data) ? data : [];
-        })
-        .catch(err => console.error(err));
-    }
-
-    render() {
-      return html`
-        <div class="rpg-wrapper">
-          ${this.items.slice(0, this.limit).map(item => html`
-            <div class="character-stuff">
-              <rpg-character seed="${item.login}" width="128" height="128"></rpg-character>
-              <div class="contDetails">
-                <a href="https://github.com/${item.login}" target="_blank">${item.login}</a><br/>
-                Contributions: ${item.contributions}
-              </div>
-            </div>
-          `)}
-        </div>
-      `;
-    }
+  render() {
+    return html`
+    <div class="header">
+      <h3>GitHub Repo: <a href="https://github.com/${this.org}/${this.repo}">${this.org}/${this.repo}</a></h3>
+    </div>
+    <slot></slot>
+    <div class="rpg-wrapper">
+    ${this.items.filter((item, index) => index < this.limit).map((item) => 
+        html`
+        <div class="character-stuff">
+        <rpg-character  seed="${item.login}"></rpg-character>
+          <div class="contdetails">
+          <a href=https://github.com/${item.login}>${item.login}</a>
+          Contributions: ${item.contributions}
+          </div>
+          </div>
+        `)}
+  </div>`;
+  }
+  /**
+   * haxProperties integration via file reference
+   */
+  static get haxProperties() {
+    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
+      .href;
+  }
 }
 
 globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
