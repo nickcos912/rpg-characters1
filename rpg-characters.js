@@ -144,7 +144,8 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
         Contributions: ${item.contributions}
       </div>
     </div>
-  `;
+`;
+
 })}
   </div>`;
   }
