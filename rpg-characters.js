@@ -91,9 +91,20 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
 
   updated(changedProperties) {
     super.updated(changedProperties);
+  
     if ((changedProperties.has('org') || changedProperties.has('repo')) && this.org && this.repo) {
       this.getData();
     }
+  
+    // 🔥 Force RPG characters to draw
+    setTimeout(() => {
+      this.shadowRoot?.querySelectorAll('rpg-character').forEach((el) => {
+        if (typeof el.draw === 'function') {
+          el.draw();
+        }
+      });
+    }, 50);
+  }
   
     // Force redraw after rendering
     setTimeout(() => {
@@ -128,18 +139,29 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
 
   render() {
     return html`
-    <div class="header">
-      <h3>GitHub Repo: <a href="https://github.com/${this.org}/${this.repo}">${this.org}/${this.repo}</a></h3>
-    </div>
-    <slot></slot>
-    <div class="rpg-wrapper">
-    ${this.items.filter((item, index) => index < this.limit).map((item) => {
-  setTimeout(() => {
-    const el = this.shadowRoot?.querySelector(`rpg-character[seed="${item.login}"]`);
-    if (el) {
-      el.requestUpdate?.();
-    }
-  }, 0);
+      <div class="header">
+        <h3>GitHub Repo: <a href="https://github.com/${this.org}/${this.repo}">${this.org}/${this.repo}</a></h3>
+      </div>
+      <slot></slot>
+      <div class="rpg-wrapper">
+        ${this.items.slice(0, this.limit).map((item, index) => html`
+          <div class="character-stuff">
+            <rpg-character
+              id="rpg-${item.login}-${index}"
+              seed="${item.login}"
+              width="128"
+              height="128"
+              style="width:128px; height:128px;">
+            </rpg-character>
+            <div class="contdetails">
+              <a href="https://github.com/${item.login}">${item.login}</a>
+              Contributions: ${item.contributions}
+            </div>
+          </div>
+        `)}
+      </div>
+    `;
+  }
 
   return html`
     <div class="character-stuff">
