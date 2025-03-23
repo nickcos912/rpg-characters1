@@ -8,9 +8,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 import '@haxtheweb/rpg-character/rpg-character.js';
 
 export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
-  static get tag() {
-    return "github-rpg-contributors";
-  }
+  static get tag() { return "github-rpg-contributors"; }
 
   constructor() {
     super();
@@ -64,10 +62,10 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   updated(changedProps) {
-    super.updated(changedProps);
-    if ((changedProps.has("org") || changedProps.has("repo")) && this.org && this.repo) {
-      this.getData();
-    }
+      super.updated(changedProps);
+      if ((changedProps.has("org") || changedProps.has("repo")) && this.org && this.repo) {
+        this.getData();
+      }
 
     // 🔥 force re-rendering of RPG characters after update
     setTimeout(() => {
@@ -78,38 +76,30 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   getData() {
-    const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        this.items = Array.isArray(data) ? data : [];
-      })
-      .catch(err => console.error(err));
-  }
+      const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          this.items = Array.isArray(data) ? data : [];
+        })
+        .catch(err => console.error(err));
+    }
 
-  render() {
-    return html`
-      <div class="header">
-        <h3>GitHub Repo: <a href="https://github.com/${this.org}/${this.repo}" target="_blank">${this.org}/${this.repo}</a></h3>
-      </div>
-      <div class="rpg-wrapper">
-        ${this.items.slice(0, this.limit).map((item, index) => html`
-          <div class="character-stuff">
-            <rpg-character
-              seed="${item.login}"
-              width="128"
-              height="128"
-              style="width:128px; height:128px;"
-            ></rpg-character>
-            <div class="contDetails">
-              <a href="https://github.com/${item.login}" target="_blank">${item.login}</a>
-              Contributions: ${item.contributions}
+    render() {
+      return html`
+        <div class="rpg-wrapper">
+          ${this.items.slice(0, this.limit).map(item => html`
+            <div class="character-stuff">
+              <rpg-character seed="${item.login}" width="128" height="128"></rpg-character>
+              <div class="contDetails">
+                <a href="https://github.com/${item.login}" target="_blank">${item.login}</a><br/>
+                Contributions: ${item.contributions}
+              </div>
             </div>
-          </div>
-        `)}
-      </div>
-    `;
-  }
+          `)}
+        </div>
+      `;
+    }
 }
 
 globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);

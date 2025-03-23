@@ -12,20 +12,18 @@
       font-family: sans-serif;
     }
   </style>
+  <script type="module" src="./rpg-characters.js"></script>
 </head>
 
 <body>
-  <h1>rpg-contributors</h1>
-
-  <!-- Component using the registered tag -->
-  <github-rpg-contributors 
-    org="haxtheweb" 
-    repo="webcomponents" 
-    limit="10">
-  </github-rpg-contributors>
-
-  <!-- Load your component definition -->
-  <script type="module" src="./rpg-characters.js"></script>
+  <body>
+    <h1>rpg-contributors</h1>
+    <github-rpg-contributors 
+      org="haxtheweb" 
+      repo="webcomponents" 
+      limit="5">
+    </github-rpg-contributors>
+  </body>
 </body>
 
 </html>
