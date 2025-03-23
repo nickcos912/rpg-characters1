@@ -5,8 +5,7 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import '@haxtheweb/rpg-character/rpg-characters.js';
-import { GithubRpgContributors } from "@haxtheweb/rpg-character/rpg-characters.js";
+import '@haxtheweb/rpg-character/rpg-character.js';
 
 
 /**
@@ -118,7 +117,7 @@ getData() {
     ${this.items.filter((item, index) => index < this.limit).map((item) => 
         html`
         <div class="character-stuff">
-        <rpg-characters  seed="${item.login}"></rpg-characters>
+        <rpg-character  seed="${item.login}"></rpg-character>
           <div class="contdetails">
           <a href=https://github.com/${item.login}>${item.login}</a>
           Contributions: ${item.contributions}
