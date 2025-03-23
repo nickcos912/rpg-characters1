@@ -59,7 +59,7 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
         padding: var(--ddd-spacing-4);
       }
       h3 span {
-        font-size: var(--github-rpg-contributors-label-font-size, var(--ddd-font-size-s));
+        font-size: var(--rpg-characters-label-font-size, var(--ddd-font-size-s));
       }
       .rpg-wrapper{
       display: flex;
