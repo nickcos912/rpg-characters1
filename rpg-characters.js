@@ -123,21 +123,29 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     </div>
     <slot></slot>
     <div class="rpg-wrapper">
-    ${this.items.filter((item, index) => index < this.limit).map((item) => 
-        html`
-        <div class="character-stuff">
-        <rpg-character 
+    ${this.items.filter((item, index) => index < this.limit).map((item) => {
+  setTimeout(() => {
+    const el = this.shadowRoot?.querySelector(`rpg-character[seed="${item.login}"]`);
+    if (el) {
+      el.requestUpdate?.();
+    }
+  }, 0);
+
+  return html`
+    <div class="character-stuff">
+      <rpg-character 
         seed="${item.login}" 
         width="128" 
         height="128" 
         style="width:128px; height:128px;">
-</rpg-character>
-          <div class="contdetails">
-          <a href=https://github.com/${item.login}>${item.login}</a>
-          Contributions: ${item.contributions}
-          </div>
-          </div>
-        `)}
+      </rpg-character>
+      <div class="contdetails">
+        <a href="https://github.com/${item.login}">${item.login}</a>
+        Contributions: ${item.contributions}
+      </div>
+    </div>
+  `;
+})}
   </div>`;
   }
   /**
