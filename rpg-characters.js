@@ -5,34 +5,33 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import '@haxtheweb/rpg-character/rpg-character.js';
+
 
 /**
- * `rpg-characters`
+ * `github-rpg-contributors`
  * 
  * @demo index.html
- * @element rpg-characters
+ * @element github-rpg-contributors
  */
-export class RpgCharacters extends DDDSuper(I18NMixin(LitElement)) {
+export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
-    return "rpg-characters";
+    return "github-rpg-contributors";
   }
 
   constructor() {
     super();
+    this.items = []
+    this.org=''
+    this.repo=''
     this.title = "";
+    this.limit = 25;
     this.t = this.t || {};
     this.t = {
       ...this.t,
       title: "Title",
     };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/rpg-characters.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
   }
 
   // Lit reactive properties
@@ -40,6 +39,10 @@ export class RpgCharacters extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      items: { type: Array},
+      org: {type: String},
+      repo: {type: String},
+      limit: {type: Number}
     };
   }
 
@@ -49,8 +52,6 @@ export class RpgCharacters extends DDDSuper(I18NMixin(LitElement)) {
     css`
       :host {
         display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
       }
       .wrapper {
@@ -58,20 +59,73 @@ export class RpgCharacters extends DDDSuper(I18NMixin(LitElement)) {
         padding: var(--ddd-spacing-4);
       }
       h3 span {
-        font-size: var(--rpg-characters-label-font-size, var(--ddd-font-size-s));
+        font-size: var(--github-rpg-contributors-label-font-size, var(--ddd-font-size-s));
+      }
+      .rpg-wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      }
+
+      .character-stuff {
+        padding: var(--ddd-spacing-3);
+        text-align: center;
+        min-width: 176px;
+      }
+
+      .contdetails {
+        display: flex;
+        flex-direction: column;
+        margin: var(--ddd-spacing-3);
+      }
+
+      .header {
+        text-align: center;
+        margin: 0 auto;
+      }
+      h3 {
+        display: inline-block;
       }
     `];
   }
 
-  // Lit render the HTML
+  updated(changedProperties){
+    super.updated(changedProperties);
+    if (changedProperties.has('org') || changedProperties.has('repo')){
+      this.getData();
+    }
+  }
+getData() {
+  const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
+  try {
+    fetch(url).then(d => d.ok ? d.json(): {}).then(data => {
+      if (data) {
+        this.items = [];
+        this.items = data;
+      }});
+  } catch (error) {
+    console.error("HI");
+  }}
+
   render() {
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
+    <div class="header">
+      <h3>GitHub Repo: <a href="https://github.com/${this.org}/${this.repo}">${this.org}/${this.repo}</a></h3>
+    </div>
+    <slot></slot>
+    <div class="rpg-wrapper">
+    ${this.items.filter((item, index) => index < this.limit).map((item) => 
+        html`
+        <div class="character-stuff">
+        <rpg-character  seed="${item.login}"></rpg-character>
+          <div class="contdetails">
+          <a href=https://github.com/${item.login}>${item.login}</a>
+          Contributions: ${item.contributions}
+          </div>
+          </div>
+        `)}
+  </div>`;
   }
-
   /**
    * haxProperties integration via file reference
    */
@@ -80,52 +134,5 @@ export class RpgCharacters extends DDDSuper(I18NMixin(LitElement)) {
       .href;
   }
 }
-render() {
-  return html`
-  <h2>${this.title}</h2>
-  <details open>
-    <summary>Search inputs</summary>
-    <div>
-      <input id="input" placeholder="Search NASA images" @input="${this.inputChanged}" />
-    </div>
-  </details>
-  <div class="results">
-    ${this.items.map((item, index) => html`
-    <nasa-image
-      source="${item.links[0].href}"
-      title="${item.data[0].title}"
-    ></nasa-image>
-    `)}
-  </div>
-  `;
-}
 
-inputChanged(e) {
-  this.value = this.shadowRoot.querySelector('#input').value;
-}
-// life cycle will run when anything defined in `properties` is modified
-updated(changedProperties) {
-  // see if value changes from user input and is not empty
-  if (changedProperties.has('value') && this.value) {
-    this.updateResults(this.value);
-  }
-  else if (changedProperties.has('value') && !this.value) {
-    this.items = [];
-  }
-  // @debugging purposes only
-  if (changedProperties.has('items') && this.items.length > 0) {
-    console.log(this.items);
-  }
-}
-
-updateResults(value) {
-  this.loading = true;
-  fetch(`https://images-api.nasa.gov/search?media_type=image&q=${value}`).then(d => d.ok ? d.json(): {}).then(data => {
-    if (data.collection) {
-      this.items = [];
-      this.items = data.collection.items;
-      this.loading = false;
-    }  
-  });
-}
-globalThis.customElements.define(RpgCharacters.tag, RpgCharacters);
+globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);

@@ -5,7 +5,7 @@
   <base href="/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for rpg-characters">
+  <meta name="Description" content="Demonstration for github-rpg-contributors">
 
   <style>
     :root, html, body {
@@ -15,64 +15,35 @@
     #demo {
       margin: var(--ddd-spacing-2);
     }
-    rpg-characters {
+    github-rpg-contributors {
       margin: var(--ddd-spacing-2);
       border: var(--ddd-border-md);
       border-radius: var(--ddd-radius-lg);
     }
-    rpg-characters:hover {
+    github-rpg-contributors:hover {
       box-shadow: var(--ddd-boxShadow-sm);
     }
     #example {
-      --rpg-characters-font-size: var(--ddd-font-size-l);
+      --github-rpg-contributors-font-size: var(--ddd-font-size-l);
       background-color: var(--ddd-accent-2);
       color: var(--ddd-primary-17);
     }
+
   </style>
-  <title>rpg-characters</title>
+  <title>github-rpg-contributors</title>
 </head>
 
 <body>
   <div id="demo">
-    <h1>rpg-characters</h1>
-  </div>
-  <script type="module" src="./rpg-characters.js"></script>
-
+    
+    <h1>github-rpg-contributors</h1>
+    <github-rpg-contributors org="haxtheweb" repo="webcomponents" limit="10"></github-rpg-contributors>
+    <github-rpg-contributors org="HannahMontana-ALE" repo="HannahMontana-ALE" limit="10"></github-rpg-contributors>
+  <script type="module" src="./github-rpg-contributors.js"></script>
   <!-- Take HAX, the Web and you further down the rabbit hole -->
-  <style>
-    #follow-the-white-rabbit {
-      margin: var(--ddd-spacing-4) auto 64px  16px;
-      background-color: var(--ddd-accent-4);
-      color: black;
-    }
-    #follow-the-white-rabbit[open] summary {
-      background-color: var(--ddd-accent-4) !important;
-      color: black;
-    }
-    #follow-the-white-rabbit[open] .content {
-      padding: 0 var(--ddd-spacing-4);
-    }
-    #follow-the-white-rabbit ul,
-    #follow-the-white-rabbit li {
-      padding: 0;
-      margin: 0;
-    }
-    #follow-the-white-rabbit li {
-      font-size: var(--ddd-font-size-xs);
-      list-style: none;
-    }
-    #follow-the-white-rabbit li strong,
-    #follow-the-white-rabbit li a {
-      padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
-      color: black;
-      display: block;
-      font-weight: bold;
-    }
-    #follow-the-white-rabbit li:focus-within a,
-    #follow-the-white-rabbit li:hover a {
-      background-color: black;
-      color: yellow;
-    }
-  </style>
+   <!-- <div id="RPGguy">
+  <rpg-character  seed="${item.login}"></rpg-character>
+   </div> -->
+  </div>
 </body>
 </html>
