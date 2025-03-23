@@ -10,14 +10,21 @@
   <!-- ✅ Known-good pre-bundled version with working Lit render -->
   <script type="module">
     import 'https://cdn.jsdelivr.net/npm/@haxtheweb/rpg-character@10.0.2/dist/rpg-character.js';
-
-    // Wait for DOM to be ready, then force render
+  
     window.addEventListener('DOMContentLoaded', () => {
-      const el = document.querySelector('rpg-character');
-      el.seed = 'wizard42'; // force render with known seed
+      const el = document.querySelector('#myHero');
+      el.seed = 'wizard42';
+  
+      // ✅ Set size as properties
       el.width = 128;
       el.height = 128;
-      el.requestUpdate?.(); // trigger lit to redraw
+  
+      // ✅ Also set size as attributes (in case the component uses those instead)
+      el.setAttribute('width', '128');
+      el.setAttribute('height', '128');
+  
+      // ✅ Trigger Lit to update
+      el.requestUpdate?.();
     });
   </script>
 
