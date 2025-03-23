@@ -2,20 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CDN RPG Character Test</title>
-  <script type="module" src="https://unpkg.com/@haxtheweb/rpg-character@10.0.2/rpg-character.js"></script>
+  <title>RPG Character via JSPM</title>
+  <script type="module" src="https://unpkg.com/@haxtheweb/d-d-d@9.0.21/d-d-d.js"></script>
+  <script type="module">
+    import 'https://jspm.dev/@haxtheweb/rpg-character';
+  </script>
   <style>
     body {
       background: #111;
       color: white;
-      font-family: sans-serif;
       text-align: center;
+      font-family: sans-serif;
       padding: 2rem;
     }
   </style>
 </head>
 <body>
-  <h1>Standalone RPG Character via CDN</h1>
-  <rpg-character seed="testuser"></rpg-character>
+  <h1>Standalone RPG Character</h1>
+  <rpg-character seed="wizard123"></rpg-character>
 </body>
 </html>
