@@ -135,4 +135,3 @@ getData() {
   }
 }
 
-globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
