@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RPG Character via JSPM</title>
+  <title>Standalone RPG Character (Bundled)</title>
+  <!-- ✅ Load all required styles -->
   <script type="module" src="https://unpkg.com/@haxtheweb/d-d-d@9.0.21/d-d-d.js"></script>
-  <script type="module">
-    import 'https://jspm.dev/@haxtheweb/rpg-character';
-  </script>
+  
+  <!-- ✅ Load prebundled RPG character (includes Lit) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@haxtheweb/rpg-character@10.0.2/dist/rpg-character.js"></script>
+
   <style>
     body {
       background: #111;
@@ -18,7 +20,7 @@
   </style>
 </head>
 <body>
-  <h1>Standalone RPG Character</h1>
-  <rpg-character seed="wizard123"></rpg-character>
+  <h1>Standalone RPG Character (Prebundled)</h1>
+  <rpg-character seed="testuser"></rpg-character>
 </body>
 </html>
