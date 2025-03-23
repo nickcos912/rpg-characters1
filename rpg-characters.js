@@ -92,22 +92,39 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
   updated(changedProperties){
     super.updated(changedProperties);
     if (changedProperties.has('org') || changedProperties.has('repo')){
-      this.getData();
+      this.items = [
+        {
+          login: 'testuser1',
+          contributions: 42
+        },
+        {
+          login: 'testuser2',
+          contributions: 99
+        }
+      ];
+      ;
     }
   }
-getData() {
-  const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
-  try {
-    fetch(url).then(d => d.ok ? d.json(): {}).then(data => {
-      if (data) {
-        this.items = [];
-        this.items = data;
-      }});
-  } catch (error) {
-    console.error("Error");
+  getData() {
+    const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
+    console.log("Fetching contributors from", url);
+  
+    fetch(url)
+      .then(d => {
+        if (!d.ok) {
+          console.error("GitHub API error:", d.status, d.statusText);
+          return [];
+        }
+        return d.json();
+      })
+      .then(data => {
+        console.log("Contributors received:", data);
+        this.items = Array.isArray(data) ? data : [];
+      })
+      .catch(error => {
+        console.error("Fetch failed:", error);
+      });
   }
-  console.log("Fetching contributors from", url);
-}
 
   render() {
     return html`
