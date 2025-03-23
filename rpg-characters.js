@@ -105,7 +105,9 @@ getData() {
       }});
   } catch (error) {
     console.error("Error");
-  }}
+  }
+  console.log("Fetching contributors from", url);
+}
 
   render() {
     return html`

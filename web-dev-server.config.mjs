@@ -4,6 +4,7 @@
 const hmr = process.argv.includes('--hmr');
 
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
+  appIndex: 'index.html',
   open: '/',
   watch: !hmr,
   https: true,
