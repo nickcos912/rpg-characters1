@@ -95,7 +95,7 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
       this.getData();
     }
   
-    // Wait a tick and then trigger draw() on all characters
+    // Force redraw after rendering
     setTimeout(() => {
       const chars = this.shadowRoot?.querySelectorAll('rpg-character') || [];
       chars.forEach((el) => {
@@ -103,7 +103,7 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
           el.draw();
         }
       });
-    }, 100); // 100ms delay to ensure rendering has occurred
+    }, 100);
   }
   getData() {
     const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
