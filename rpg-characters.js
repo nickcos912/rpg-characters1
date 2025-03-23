@@ -118,7 +118,7 @@ getData() {
     ${this.items.filter((item, index) => index < this.limit).map((item) => 
         html`
         <div class="character-stuff">
-        <rpg-character  seed="${item.login}"></rpg-character>
+        <rpg-characters  seed="${item.login}"></rpg-characters>
           <div class="contdetails">
           <a href=https://github.com/${item.login}>${item.login}</a>
           Contributions: ${item.contributions}
