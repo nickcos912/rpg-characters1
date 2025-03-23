@@ -104,7 +104,7 @@ getData() {
         this.items = data;
       }});
   } catch (error) {
-    console.error("HI");
+    console.error("Error");
   }}
 
   render() {
