@@ -96,26 +96,16 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
       this.getData();
     }
   
-    // 🔥 Force RPG characters to draw
+    // 🔥 Trigger redraw
     setTimeout(() => {
       this.shadowRoot?.querySelectorAll('rpg-character').forEach((el) => {
         if (typeof el.draw === 'function') {
           el.draw();
         }
       });
-    }, 50);
-  }
-  
-    // Force redraw after rendering
-    setTimeout(() => {
-      const chars = this.shadowRoot?.querySelectorAll('rpg-character') || [];
-      chars.forEach((el) => {
-        if (typeof el.draw === 'function') {
-          el.draw();
-        }
-      });
     }, 100);
   }
+
   getData() {
     const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
     console.log("Fetching contributors from", url);
