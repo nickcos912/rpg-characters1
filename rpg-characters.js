@@ -157,6 +157,5 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
       .href;
   }
-
 globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
 

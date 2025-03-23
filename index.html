@@ -1,48 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for github-rpg-contributors">
-
-  <style>
-    :root, html, body {
-      margin: 0;
-      padding: 0;
-    }
-    #demo {
-      margin: var(--ddd-spacing-2);
-    }
-    github-rpg-contributors {
-      margin: var(--ddd-spacing-2);
-      border: var(--ddd-border-md);
-      border-radius: var(--ddd-radius-lg);
-    }
-    github-rpg-contributors:hover {
-      box-shadow: var(--ddd-boxShadow-sm);
-    }
-    #example {
-      --github-rpg-contributors-font-size: var(--ddd-font-size-l);
-      background-color: var(--ddd-accent-2);
-      color: var(--ddd-primary-17);
-    }
-
-  </style>
-  <title>github-rpg-contributors</title>
-</head>
-
-<body>
-  <div id="demo">
-    
+  <head>
+    <meta charset="utf-8" />
+    <title>rpg-contributors</title>
+    <script type="module" src="./rpg-characters.js"></script>
+  </head>
+  <body>
     <h1>rpg-contributors</h1>
-    <github-rpg-contributors org="haxtheweb" repo="webcomponents" limit="10"></github-rpg-contributors>
-    <github-rpg-contributors org="HannahMontana-ALE" repo="HannahMontana-ALE" limit="10"></github-rpg-contributors>
-   </div>
-   <script type="module">
-    import './rpg-characters.js';
-  </script>
-  <script type="module" src="./src/github-rpg-characters.js"></script>
-</body>
+    <github-rpg-contributors 
+      org="haxtheweb" 
+      repo="webcomponents" 
+      limit="10">
+    </github-rpg-contributors>
+  </body>
 </html>
