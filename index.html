@@ -1,27 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>RPG Contributors</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      :root, html, body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background-color: #fff;
-        color: #000;
-      }
-      #demo {
-        padding: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="demo">
-      <h1>rpg-contributors</h1>
-      <github-rpg-contributors org="haxtheweb" repo="rpg-character" limit="10"></github-rpg-contributors>
-    </div>
-    <script type="module" src="./rpg-characters.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>rpg-contributors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root, html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>rpg-contributors</h1>
+
+  <!-- Component using the registered tag -->
+  <github-rpg-contributors 
+    org="haxtheweb" 
+    repo="webcomponents" 
+    limit="10">
+  </github-rpg-contributors>
+
+  <!-- Load your component definition -->
+  <script type="module" src="./rpg-characters.js"></script>
+</body>
+
 </html>
