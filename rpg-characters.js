@@ -163,31 +163,10 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     `;
   }
 
-  return html`
-    <div class="character-stuff">
-      <rpg-character 
-        seed="${item.login}" 
-        width="128" 
-        height="128" 
-        style="width:128px; height:128px;">
-      </rpg-character>
-      <div class="contdetails">
-        <a href="https://github.com/${item.login}">${item.login}</a>
-        Contributions: ${item.contributions}
-      </div>
-    </div>
-`;
-
-})}
-  </div>`;
-  }
-  /**
-   * haxProperties integration via file reference
-   */
   static get haxProperties() {
     return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
       .href;
   }
-}
+
 globalThis.customElements.define(GithubRpgContributors.tag, GithubRpgContributors);
 
