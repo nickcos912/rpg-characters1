@@ -89,11 +89,21 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
-  updated(changedProperties){
+  updated(changedProperties) {
     super.updated(changedProperties);
-    if ((changedProperties.has('org') || changedProperties.has('repo')) && this.org && this.repo){
+    if ((changedProperties.has('org') || changedProperties.has('repo')) && this.org && this.repo) {
       this.getData();
     }
+  
+    // Wait a tick and then trigger draw() on all characters
+    setTimeout(() => {
+      const chars = this.shadowRoot?.querySelectorAll('rpg-character') || [];
+      chars.forEach((el) => {
+        if (typeof el.draw === 'function') {
+          el.draw();
+        }
+      });
+    }, 100); // 100ms delay to ensure rendering has occurred
   }
   getData() {
     const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
