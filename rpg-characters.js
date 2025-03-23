@@ -89,11 +89,20 @@ export class GithubRpgContributors extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
-  updated(changedProperties){
+  updated(changedProperties) {
     super.updated(changedProperties);
-    if (changedProperties.has('org') || changedProperties.has('repo')){
+    if ((changedProperties.has("org") || changedProperties.has("repo")) && this.org && this.repo) {
       this.getData();
     }
+  
+    // 🔥 Fix: trigger draw on all RPG characters after render
+    setTimeout(() => {
+      this.shadowRoot?.querySelectorAll("rpg-character").forEach((el) => {
+        if (typeof el.draw === "function") {
+          el.draw();
+        }
+      });
+    }, 100);
   }
 getData() {
   const url = `https://api.github.com/repos/${this.org}/${this.repo}/contributors`;
