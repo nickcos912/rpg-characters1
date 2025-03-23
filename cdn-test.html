@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>RPG Character - Working Test</title>
+  <meta charset="UTF-8">
+  <title>Working RPG Character</title>
 
-  <!-- ✅ Required DDD design tokens -->
+  <!-- ✅ Required for style variables -->
   <script type="module" src="https://unpkg.com/@haxtheweb/d-d-d@9.0.21/d-d-d.js"></script>
 
-  <!-- ✅ Prebundled RPG character (has Lit inside) -->
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@haxtheweb/rpg-character@10.0.2/dist/rpg-character.js"></script>
+  <!-- ✅ Known-good pre-bundled version with working Lit render -->
+  <script type="module">
+    import 'https://cdn.jsdelivr.net/npm/@haxtheweb/rpg-character@10.0.2/dist/rpg-character.js';
+
+    // Wait for DOM to be ready, then force render
+    window.addEventListener('DOMContentLoaded', () => {
+      const el = document.querySelector('rpg-character');
+      el.seed = 'wizard42'; // force render with known seed
+      el.width = 128;
+      el.height = 128;
+      el.requestUpdate?.(); // trigger lit to redraw
+    });
+  </script>
 
   <style>
     body {
       background-color: #111;
       color: white;
+      text-align: center;
       font-family: sans-serif;
       padding: 2rem;
-      text-align: center;
     }
 
     rpg-character {
-      width: 128px;
-      height: 128px;
       display: inline-block;
       border: 2px solid white;
-      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <h1>RPG Character Should Appear Below</h1>
-  <rpg-character seed="wizard42"></rpg-character>
+  <h1>RPG Character Appears Below</h1>
+  <rpg-character></rpg-character>
 </body>
 </html>
