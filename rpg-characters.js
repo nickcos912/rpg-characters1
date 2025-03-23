@@ -10,7 +10,7 @@ import { RpgCharacter } from "@haxtheweb/rpg-character/rpg-character.js";
 
 
 /**
- * `github-rpg-contributors`
+ * `rpg-characters`
  * 
  * @demo index.html
  * @element rpg-characters
