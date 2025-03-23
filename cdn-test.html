@@ -1,50 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Working RPG Character</title>
+  <meta charset="UTF-8" />
+  <title>DDD RPG Character</title>
 
-  <!-- ✅ Required for style variables -->
+  <!--  DDD tokens (required) -->
   <script type="module" src="https://unpkg.com/@haxtheweb/d-d-d@9.0.21/d-d-d.js"></script>
 
-  <!-- ✅ Known-good pre-bundled version with working Lit render -->
+  <!--  RPG character bundle -->
   <script type="module">
     import 'https://cdn.jsdelivr.net/npm/@haxtheweb/rpg-character@10.0.2/dist/rpg-character.js';
-  
+
     window.addEventListener('DOMContentLoaded', () => {
       const el = document.querySelector('#myHero');
       el.seed = 'wizard42';
-  
-      // ✅ Set size as properties
       el.width = 128;
       el.height = 128;
-  
-      // ✅ Also set size as attributes (in case the component uses those instead)
       el.setAttribute('width', '128');
       el.setAttribute('height', '128');
-  
-      // ✅ Trigger Lit to update
       el.requestUpdate?.();
     });
   </script>
-
-  <style>
-    body {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      font-family: sans-serif;
-      padding: 2rem;
-    }
-
-    rpg-character {
-      display: inline-block;
-      border: 2px solid white;
-    }
-  </style>
 </head>
-<body>
-  <h1>RPG Character Appears Below</h1>
-  <rpg-character></rpg-character>
+<body style="background-color: #111; color: white; text-align: center; padding: var(--ddd-spacing-6); font-family: var(--ddd-font-body);">
+  <h1>DDD RPG Character Test</h1>
+
+  <!-- ✅ Use DDD spacing + sizing inline -->
+  <rpg-character
+    id="myHero"
+    style="width: var(--ddd-size-xl); height: var(--ddd-size-xl); border: 2px solid white; display: inline-block;">
+  </rpg-character>
 </body>
 </html>
